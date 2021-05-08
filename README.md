@@ -1,6 +1,13 @@
 # flask-geomapper
 Visualize Flask request locations cartographically.
 
+This python library allows you to map Flask request locations on a map using their IPs. This allows you to get a better understanding of your users and audience. \
+Example map:
+
+<p align="center">
+    <img src="images/example_map.png">
+</p>
+
 ## Installation
 
     pip3 install flask-geomapper
