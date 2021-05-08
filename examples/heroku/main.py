@@ -1,6 +1,8 @@
 """
 Find the deployed app at https://flask-geomapper.herokuapp.com.
 Same as `examples/basic.py`.
+
+NOTE: Map will be cleared if dynos restart.
 """
 
 import flask
