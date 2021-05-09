@@ -121,5 +121,41 @@ class flask_geomapper(object):
 
         return img_data
 
-    def clear_history(self) -> None: self.history: dict = {"Longitude": [], "Latitude": []}
-    def pop_first_location(self) -> None: self.history["Longitude"], self.history["Latitude"] = self.history["Longitude"][1:], self.history["Latitude"][1:]
+    def clear_history(self) -> dict: 
+        """
+        Clears all stored locations.
+
+        Returns: Location history.
+            * type: dict
+        """
+        self.history: dict = {"Longitude": [], "Latitude": []}
+        return self.history
+
+    def pop_first_location(self) -> dict: 
+        """
+        Removes the first stored location.
+
+        Returns: Location history.
+            * type: dict
+        """
+        self.history["Longitude"], self.history["Latitude"] = self.history["Longitude"][1:], self.history["Latitude"][1:]
+        return self.history
+
+    def add_locations(self, lons: list, lats: list) -> dict: 
+        """
+        Manually adds locations.
+
+        Parmeters:
+            * lons: List of longitudes, matched to latitude with list index
+                * type: list
+            * lat: List of latitudes, matched to longitude with list index
+                * type: list
+
+        Returns: Location history.
+            * type: dict
+
+        Example:
+            * basic: `add_history({"Longitude": [50, 45], "Latitude": [50, 45]})`
+        """
+        self.history["Longitude"], self.history["Latitude"] = self.history["Longitude"] + lons, self.history["Latitude"] + lats
+        return self.history
