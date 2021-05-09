@@ -2,7 +2,7 @@ import setuptools
 
 setuptools.setup(
     name="flask-geomapper",
-    version="1.0.0",
+    version="2.0.0",
     author="Aarav Borthakur",
     author_email="gadhaguy13@gmail.com",
     description="Visualize Flask request locations cartographically",
