@@ -2,6 +2,9 @@
 This example shows how to ignore routes and status codes from
 flask-geomapper. 
 `/ignore` and 404s does not count any locations
+
+COMPATIBLE VERSIONS:
+    * ^1.0.0
 """
 
 import flask

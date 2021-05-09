@@ -1,6 +1,9 @@
 """
 This example shows a super basic usage of flask-geomapper. On running, 
   the server, `/` route will show you a map of request locations.
+
+COMPATIBLE VERSIONS:
+    * 1.0.0^
 """
 
 import flask

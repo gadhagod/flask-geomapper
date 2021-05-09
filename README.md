@@ -37,7 +37,8 @@ Basic usage: "basic.py" \
 AWS S3 integration: "aws_s3.py" \
 Modifying count triggers: "count_triggers.py" \
 Clear old locations: "remove_first_location_on_interval.py" \
-Ignore routes and status codes: "ignore_routes_and_statuses" \
+Ignore routes and status codes: "ignore_routes_and_statuses.py" \
+Manually add locations: "manual_history_append.py"
 Heroku deployment: "heroku/"
 
 ## Commercial usage

@@ -1,6 +1,10 @@
 """
 This example shows usage of flask-geomapper with Amazon S3. It will upload
 the map to a given bucket when a request is made to `/`.
+
+COMPATIBLE VERSIONS:
+  * ^1.0.0
+
 OTHER REQUIREMENTS:
   boto3
 """

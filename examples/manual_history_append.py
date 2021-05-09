@@ -1,5 +1,8 @@
 """
 This examples shows how to manually add locations to the map.
+
+COMPATIBLE VERSIONS:
+    ^2.0.0
 """
 
 import flask

@@ -4,6 +4,9 @@ locations. The default is `flask.Flask().after_request`, but that
 can be changed based on your use case. The trigger does not need
 to be a flask function.
 This is also shown in `examples/basic.py`.
+
+COMPATIBLE VERSIONS:
+    * ^1.0.0
 """
 
 import flask

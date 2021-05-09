@@ -5,6 +5,9 @@ This example shows usage of flask-geomapper that removes the earliest
   millions of requests made, massive RAM will be used. 
   Using this method is highly recommended for production use cases.
 
+COMPATIBLE VERSIONS:
+  * ^1.0.0
+
 OTHER REQUIREMENTS:
   apscheduler
 
