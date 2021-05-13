@@ -9,7 +9,7 @@ from rockset import Client, Q
 from os import getenv
 
 app = flask.Flask(__name__)
-fg = flask_geomapper(app, debug=True)
+fg = flask_geomapper(app)
 
 token = getenv("RS2_TOKEN")
 
