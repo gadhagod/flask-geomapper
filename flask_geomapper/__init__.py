@@ -1,14 +1,9 @@
 import flask
-import boto3
 import io
-from json import loads, dumps
 import flask
-from random import randint
 import pandas as pd
 import geopandas
 import matplotlib.pyplot as plt
-from json import loads
-from os import remove, getenv
 from requests import get
 from typing import Union, Callable, List
 
