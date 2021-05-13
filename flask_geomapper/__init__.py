@@ -12,8 +12,6 @@ from os import remove, getenv
 from requests import get
 from typing import Union, Callable, List
 
-flask.Response
-
 class flask_geomapper(object):
     """
     flask_geomapper base class.
@@ -69,8 +67,9 @@ class flask_geomapper(object):
                 current_long = location_data["lon"]
                 current_lat = location_data["lat"]
 
-                self.history["Longitude"] = self.history["Longitude"] + [current_long]
-                self.history["Latitude"] = self.history["Latitude"] + [current_lat]
+                self.history["Longitude"].append(current_long)
+                self.history["Latitude"].append(current_lat)
+                self.history["ip"].append(ip)
 
             return response
 
@@ -128,7 +127,7 @@ class flask_geomapper(object):
         Returns: Location history.
             * type: dict
         """
-        self.history: dict = {"Longitude": [], "Latitude": []}
+        self.history: dict = {"Longitude": [], "Latitude": [], "ip": []}
         return self.history
 
     def pop_first_location(self) -> dict: 
@@ -138,24 +137,69 @@ class flask_geomapper(object):
         Returns: Location history.
             * type: dict
         """
-        self.history["Longitude"], self.history["Latitude"] = self.history["Longitude"][1:], self.history["Latitude"][1:]
+        self.history["Longitude"], self.history["Latitude"], self.history["ip"] = self.history["Longitude"][1:], self.history["Latitude"][1:], self.history["ip"][1:]
         return self.history
 
-    def add_locations(self, lons: list, lats: list) -> dict: 
+    def add_locations(self, locations: list, lon_key: str="longitude", lat_key: str="latitude", ip_key: Union[str, bool]="ip") -> dict: 
         """
         Manually adds locations.
 
         Parmeters:
-            * lons: List of longitudes, matched to latitude with list index
-                * type: list
-            * lat: List of latitudes, matched to longitude with list index
-                * type: list
+            * locations: A list of dicts, each containing longitude, latitude, and optionally an IP
+                * type: list of dicts
+            * lon_key: The dict key of items in param `locations` that contain longitude.
+                * type: str
+                * default: `"longitude"`
+            * lat_key: The dict key of items in param `locations` that contain latitude.
+                * type: str
+                * default: `"latitude"`
+            * ip_key: The dict key of items in param `locations` that contain the IP.
+                * type: str
+                * default: "ip"
 
         Returns: Location history.
             * type: dict
 
         Example:
-            * basic: `add_history({"Longitude": [50, 45], "Latitude": [50, 45]})`
+            * add single location: `add_locations([{"longitude": "100.5", "latitude": "50.5"}])
+
         """
-        self.history["Longitude"], self.history["Latitude"] = self.history["Longitude"] + lons, self.history["Latitude"] + lats
+        
+        for i in locations:
+            self.history["Longitude"].append(i[lon_key])
+            self.history["Latitude"].append(i[lat_key])
+            if ip_key:
+                self.history["ip"].append(i[ip_key])
+
         return self.history
+
+    def shape_to_docs(self, lon_key: str="longitude", lat_key: str="latitude", ip_key: Union[str, bool]="ip") -> list:
+        """
+        Converts all stored locations into a document database-compatible format.
+
+        Parameters:
+            * locations: A list of dicts, each containing longitude, latitude, and optionally an IP
+                * type: list of dicts
+            * lon_key: The dict key of items in param `locations` that contain longitude.
+                * type: str
+                * default: `"longitude"`
+            * lat_key: The dict key of items in param `locations` that contain latitude.
+                * type: str
+                * default: `"latitude"`
+            * ip_key: The dict key of items in param `locations` that contain the IP.
+                * type: str
+                * default: "ip"
+
+        Returns: all locations
+            * type: dict
+        """
+        docs = []
+        for i in range(len(self.history["ip"])):
+            doc = {
+                lon_key: self.history["Longitude"][i],
+                lat_key: self.history["Latitude"][i],
+            }
+            if ip_key: doc[ip_key] = self.history["ip"][i]
+            docs.append(doc)
+
+        return docs
