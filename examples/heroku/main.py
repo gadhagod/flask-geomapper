@@ -39,4 +39,4 @@ scheduler.start()
 def home():
     return flask.send_file(fg.get_img(), "image/png")
 
-app.run(debug=True, use_reloader=False)
+if __name__ == "__main__": app.run()
