@@ -13,6 +13,8 @@ OTHER REQUIREMENTS:
 
 COMPATIBLE VERSIONS:
     * ^3.0.0
+
+NOTE: This example uses IPs as document IDs, so they cannot be `None`
 """
 
 import flask
@@ -32,7 +34,7 @@ collection = rs.Collection.retrieve(collection_name)
 
 previous_locations = list(rs.sql(Q(f"select * from \"{collection_name}\""))) # retrieve previous locations from database
 
-if previous_locations != []: fg.add_locations(previous_locations) # if there are any items in the database, add them to flask-geomapper
+if previous_locations != []: fg.add_locations(previous_locations, ip_key="_id") # if there are any items in the database, add them to flask-geomapper
 
 def add_docs():
     collection.add_docs(fg.shape_to_docs())

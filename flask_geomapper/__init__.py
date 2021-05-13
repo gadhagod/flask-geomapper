@@ -48,11 +48,11 @@ class flask_geomapper(object):
         plt.rcParams["figure.figsize"] = (5, 5)
         plt.switch_backend("Agg")
 
+        self.clear_history()
         self.exclude_routes = exclude_routes
         self.exclude_status_codes = exclude_status_codes
         self.base_url = "http://ip-api.com/json" if not ip_api_key else "http://pro-ip-api.com/json"
         self.ip_api_key = ip_api_key
-        self.clear_history()
         self.debug = debug
         
         def update_history(response: Union[flask.Response, None]=None) -> Union[flask.Response, None]:
@@ -140,7 +140,7 @@ class flask_geomapper(object):
         self.history["Longitude"], self.history["Latitude"], self.history["ip"] = self.history["Longitude"][1:], self.history["Latitude"][1:], self.history["ip"][1:]
         return self.history
 
-    def add_locations(self, locations: list, lon_key: str="longitude", lat_key: str="latitude", ip_key: Union[str, bool]="ip") -> dict: 
+    def add_locations(self, locations: list, lon_key: str="longitude", lat_key: str="latitude", ip_key: Union[str, None]=None) -> dict: 
         """
         Manually adds locations.
 
@@ -155,7 +155,7 @@ class flask_geomapper(object):
                 * default: `"latitude"`
             * ip_key: The dict key of items in param `locations` that contain the IP.
                 * type: str
-                * default: "ip"
+                * default: `None`
 
         Returns: Location history.
             * type: dict
@@ -164,12 +164,10 @@ class flask_geomapper(object):
             * add single location: `add_locations([{"longitude": "100.5", "latitude": "50.5"}])
 
         """
-        
         for i in locations:
             self.history["Longitude"].append(i[lon_key])
             self.history["Latitude"].append(i[lat_key])
-            if ip_key:
-                self.history["ip"].append(i[ip_key])
+            self.history["ip"].append(i[ip_key] if ip_key else None)
 
         return self.history
 
