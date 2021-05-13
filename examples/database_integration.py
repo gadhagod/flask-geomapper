@@ -33,11 +33,7 @@ collection_name = "flask-locations" # configure based off your collection name a
 collection = rs.Collection.retrieve(collection_name)
 
 previous_locations = list(rs.sql(Q(f"select * from \"{collection_name}\""))) # retrieve previous locations from database
-
 if previous_locations != []: fg.add_locations(previous_locations, ip_key="_id") # if there are any items in the database, add them to flask-geomapper
-
-def add_docs():
-    collection.add_docs(fg.shape_to_docs())
 
 scheduler = BackgroundScheduler(daemon=True) # init scheduler
 scheduler.add_job(func=collection.add_docs, args=(fg.shape_to_docs(ip_key="_id"), ), trigger="interval", seconds=10)
