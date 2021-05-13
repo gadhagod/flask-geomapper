@@ -13,7 +13,7 @@ Example map:
     pip3 install flask-geomapper
 
 ## Demo
-[https://flask-geomapper.herokuapp.com](https://flask-geomapper.herokuapp.com) (locations cleared periodically). Source can be found at "examples/heroku".
+[https://flask-geomapper.herokuapp.com](https://flask-geomapper.herokuapp.com). Source can be found at "examples/heroku". An explanation is at "examples/database_integration.py".
 
 ## Quickstart
 Here is a simple example of flask-geomapper. An explaination can be found in "examples/basic.py".
