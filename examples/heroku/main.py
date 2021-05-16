@@ -21,9 +21,6 @@ previous_locations = list(rs.sql(Q(f"select * from \"{collection_name}\"")))
 
 if previous_locations != []: fg.add_locations(previous_locations, ip_key="_id")
 
-def add_docs():
-    collection.add_docs(fg.shape_to_docs())
-
 scheduler = BackgroundScheduler(daemon=True)
 scheduler.add_job(func=collection.add_docs, args=(fg.shape_to_docs(ip_key="_id"), ), trigger="interval", seconds=10)
 scheduler.start()
